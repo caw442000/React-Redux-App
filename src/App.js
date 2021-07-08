@@ -1,25 +1,28 @@
 import React from 'react';
+import DrinkForm from './components/DrinkForm';
+import DrinkList from './components/DrinkList';
+
+import { createStore, applyMiddleware } from "redux";
+import { drinkReducer as reducer } from "./reducers/drinkReducer";
+
+import { Provider } from "react-redux";
+import thunk from "redux-thunk";
+
+
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
+const store = createStore(reducer, applyMiddleware(thunk));
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <div className="App">
+        <h1>Drinks On Us</h1>
+        <DrinkForm />
+        <DrinkList />
+      </div>
+    </Provider>
   );
 }
 
